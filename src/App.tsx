@@ -6,7 +6,7 @@ function App() {
     return (
         <>
             <section id="center">
-				<h1>Welcome to Hellope</h1>
+				<h1>Welcome to New Hellope</h1>
 	
             </section>
         </>
