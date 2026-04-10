@@ -48,7 +48,7 @@ export default function AdminCustomersPage() {
             {/* TABLE */}
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 <table className="w-full text-sm">
-                    <thead className="bg-bg text-left">
+                    <thead className="bg-white text-left">
                     <tr>
                         <th className="p-3">No</th>
                         <th>Email</th>

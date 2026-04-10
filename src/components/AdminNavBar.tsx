@@ -24,7 +24,7 @@ function AdminNavBar() {
 
     const handleLogout = () => {
         console.log("Logout clicked");
-        navigate("/");
+        navigate("/",{replace:true});
     };
 
     console.log("Calling Navbar")

@@ -30,7 +30,7 @@ export default function LoginPage() {
         e.preventDefault()
         if (validate()) {
             console.log("Login success", { email, password })
-            navigate("/admin");
+            navigate("/admin",{replace:true});
         }
     }
 
