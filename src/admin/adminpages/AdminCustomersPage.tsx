@@ -54,6 +54,7 @@ export default function AdminCustomersPage() {
                         <th>Email</th>
                         <th>Password</th>
                         <th>Status</th>
+						<th>Action</th>
                     </tr>
                     </thead>
 
@@ -88,6 +89,20 @@ export default function AdminCustomersPage() {
                                         {c.enabled ? "Enabled" : "Disabled"}
                                     </button>
                                 </td>
+								<td>								
+									<div className="flex gap-2">
+
+										{/* EDIT BUTTON */}
+										<button className="px-3 py-1 text-xs rounded bg-primary text-white hover:bg-blue-600">
+											Edit
+										</button>
+
+										{/* DELETE BUTTON */}
+										<button className="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-700">
+											Delete
+										</button>
+									</div>
+								</td>
                             </tr>
                         ))}
                     </tbody>
