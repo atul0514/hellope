@@ -6,7 +6,7 @@ function App() {
     return (
         <>
             <section id="center">
-				<h1>Hello</h1>
+				<h1>Welcome Hellope</h1>
 	
             </section>
         </>
