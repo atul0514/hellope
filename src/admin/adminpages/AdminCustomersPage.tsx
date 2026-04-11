@@ -67,28 +67,47 @@ export default function AdminCustomersPage() {
 
                                 <td>{c.email}</td>
 
-                                <td className="flex items-center gap-2">
-                                    <AdminPasswordCellCustomerList password={c.password} />
-                                </td>
-
                                 <td>
-                                    <button
-                                        onClick={() =>
-                                            setCustomers((prev) =>
-                                                prev.map((p) =>
-                                                    p.id === c.id
-                                                        ? { ...p, enabled: !p.enabled }
-                                                        : p
-                                                )
-                                            )
-                                        }
-                                        className={`px-3 py-1 rounded text-white text-xs ${
-                                            c.enabled ? "bg-green-600" : "bg-red-500"
-                                        }`}
-                                    >
-                                        {c.enabled ? "Enabled" : "Disabled"}
-                                    </button>
-                                </td>
+									<div className="flex items-center gap-2">
+										<AdminPasswordCellCustomerList password={c.password} />
+									</div>
+								</td>
+<td>
+    <label className="inline-flex items-center cursor-pointer">
+        <input
+            type="checkbox"
+            checked={c.enabled}
+            onChange={() =>
+                setCustomers((prev) =>
+                    prev.map((p) =>
+                        p.id === c.id
+                            ? { ...p, enabled: !p.enabled }
+                            : p
+                    )
+                )
+            }
+            className="sr-only peer"
+        />
+
+        <div className="relative w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-green-600 transition">
+            <span
+                className="
+                    absolute top-1 left-1
+                    w-4 h-4
+                    bg-white
+                    rounded-full
+                    transition-transform
+                    duration-300
+                    peer-checked:translate-x-5
+                "
+            />
+        </div>
+
+        <span className="ml-2 text-xs font-medium">
+            {c.enabled ? "Enabled" : "Disabled"}
+        </span>
+    </label>
+</td>
 								<td>								
 									<div className="flex gap-2">
 
