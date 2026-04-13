@@ -1,13 +1,16 @@
 import { useState } from "react";
 import AdminAddCustomerDialog from "../../components/AdminAddCustomerDialog.tsx";
-import {AdminPasswordCellCustomerList} from "../../components/AdminPasswordCellCustomerList.tsx";
+import { AdminPasswordCellCustomerList } from "../../components/AdminPasswordCellCustomerList.tsx";
 
-
-type Customer = {
+export type Customer = {
     id: number;
     name: string;
-    email: string;
+    phone: string;
+    website: string;
+    ipAddress: string;
+    username: string;
     password: string;
+    role: "Admin" | "Master Api User" | "Api User";
     enabled: boolean;
 };
 
@@ -16,8 +19,28 @@ export default function AdminCustomersPage() {
     const [search, setSearch] = useState("");
 
     const [customers, setCustomers] = useState<Customer[]>([
-        { id: 1, name:"Test user", email: "test1@mail.com", password: "abc12345", enabled: true },
-        { id: 2, name:"Demo user", email: "test2@mail.com", password: "xyz98765", enabled: false },
+        {
+            id: 1,
+            name: "Test user",
+            phone: "000000",
+            website: "",
+            ipAddress: "",
+            username: "test1",
+            password: "abc12345",
+            role: "Api User",
+            enabled: true,
+        },
+        {
+            id: 2,
+            name: "Demo user",
+            phone: "000000",
+            website: "",
+            ipAddress: "",
+            username: "test2",
+            password: "xyz98765",
+            role: "Api User",
+            enabled: false,
+        },
     ]);
 
     return (
@@ -40,7 +63,7 @@ export default function AdminCustomersPage() {
             {/* SEARCH */}
             <input
                 type="text"
-                placeholder="Search email..."
+                placeholder="Search username..."
                 className="w-full p-2 mb-4 border rounded-lg"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -50,82 +73,71 @@ export default function AdminCustomersPage() {
             <div className="bg-white rounded-lg shadow overflow-hidden">
                 <table className="w-full text-sm">
                     <thead className="bg-white text-left">
-                    <tr>
-                        <th className="p-3">No</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Status</th>
-						<th>Action</th>
-                    </tr>
+                        <tr>
+                            <th className="p-3">No</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                    {customers
-                        .filter((c) => c.email.includes(search))
-                        .map((c, i) => (
-                            <tr key={c.id} className="border-t">
-                                <td className="p-3">{i + 1}</td>
-                                <td>{c.name}</td>
-                                <td>{c.email}</td>
+                        {customers
+                            .filter((c) =>
+                                c.username.toLowerCase().includes(search.toLowerCase())
+                            )
+                            .map((c, i) => (
+                                <tr key={c.id} className="border-t">
+                                    <td className="p-3">{i + 1}</td>
+                                    <td>{c.name}</td>
+                                    <td>{c.username}</td>
 
-                                <td>
-									<div className="flex items-center gap-2">
-										<AdminPasswordCellCustomerList password={c.password} />
-									</div>
-								</td>
-<td>
-    <label className="inline-flex items-center cursor-pointer">
-        <input
-            type="checkbox"
-            checked={c.enabled}
-            onChange={() =>
-                setCustomers((prev) =>
-                    prev.map((p) =>
-                        p.id === c.id
-                            ? { ...p, enabled: !p.enabled }
-                            : p
-                    )
-                )
-            }
-            className="sr-only peer"
-        />
+                                    <td>
+                                        <AdminPasswordCellCustomerList password={c.password} />
+                                    </td>
 
-        <div className="relative w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-green-600 transition">
-            <span
-                className="
-                    absolute top-1 left-1
-                    w-4 h-4
-                    bg-white
-                    rounded-full
-                    transition-transform
-                    duration-300
-                    peer-checked:translate-x-5
-                "
-            />
-        </div>
+                                    <td>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={c.enabled}
+                                                onChange={() =>
+                                                    setCustomers((prev) =>
+                                                        prev.map((p) =>
+                                                            p.id === c.id
+                                                                ? { ...p, enabled: !p.enabled }
+                                                                : p
+                                                        )
+                                                    )
+                                                }
+                                                className="sr-only peer"
+                                            />
 
-        <span className="ml-2 text-xs font-medium">
-            {c.enabled ? "Enabled" : "Disabled"}
-        </span>
-    </label>
-</td>
-								<td>								
-									<div className="flex gap-2">
+                                            <div className="relative w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-green-600 transition">
+                                                <span className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5" />
+                                            </div>
 
-										{/* EDIT BUTTON */}
-										<button className="px-3 py-1 text-xs rounded bg-primary text-white hover:bg-blue-600">
-											Edit
-										</button>
+                                            <span className="ml-2 text-xs">
+                                                {c.enabled ? "Enabled" : "Disabled"}
+                                            </span>
+                                        </label>
+                                    </td>
 
-										{/* DELETE BUTTON */}
-										<button className="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-700">
-											Delete
-										</button>
-									</div>
-								</td>
-                            </tr>
-                        ))}
+                                    <td>
+                                        <div className="flex gap-2">
+                                            <button className="px-3 py-1 text-xs bg-primary text-white rounded">
+                                                Edit
+                                            </button>
+
+                                            <button className="px-3 py-1 text-xs bg-red-500 text-white rounded">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </div>
@@ -134,9 +146,12 @@ export default function AdminCustomersPage() {
             {open && (
                 <AdminAddCustomerDialog
                     onCloseAction={() => setOpen(false)}
-                    onAddAction={(newCustomer) =>
-                        setCustomers((prev) => [...prev, newCustomer])
-                    }
+                    onAddAction={(newCustomer) => {
+                        setCustomers((prev) => [
+                            ...prev,
+                            newCustomer,
+                        ]);
+                    }}
                 />
             )}
         </div>

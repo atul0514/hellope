@@ -18,7 +18,7 @@ type AddCustomDialogProps = {
 };
 
 const roleMap: Record<string, number> = {
-    "Admin": 1,
+    Admin: 1,
     "Master Api User": 2,
     "Api User": 3,
 };
@@ -72,22 +72,20 @@ export default function AdminAddCustomerDialog({
                 roleId: roleMap[form.role],
             };
 
-            console.log("Sending payload:", payload);
-            const token =
-                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsIklQQWRkcmVzcyI6IjEuMS4xLjEiLCJleHAiOjE3NzYwOTQzNzUsImlzcyI6ImFwaS51ZGFhYW4uY29tIiwiYXVkIjoid3d3LnVkYWFhbi5jb20ifQ.sllGHbRjfum9QpnuXnib0G5kbplwH9lDSv-0zazFjtU";
+            const token = "YOUR_TOKEN_HERE";
+
             const response = await fetch(
                 "http://www.udaaanpe.com/api/Auth/Create-New-User",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`, 
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify(payload),
-                            }
+                }
             );
 
-            // IMPORTANT: handle non-JSON responses safely
             const text = await response.text();
 
             let data;
@@ -96,8 +94,6 @@ export default function AdminAddCustomerDialog({
             } catch {
                 data = text;
             }
-
-            console.log("API RESPONSE:", data);
 
             if (!response.ok) {
                 throw new Error(
@@ -115,64 +111,65 @@ export default function AdminAddCustomerDialog({
             });
 
             onCloseAction();
-
         } catch (err: any) {
-            console.error("FETCH ERROR:", err);
-
-            // IMPORTANT: real reason behind "Failed to fetch"
-            if (err.message === "Failed to fetch") {
-                setError(
-                    "Network error: CORS issue or API server not reachable."
-                );
-            } else {
-                setError(err.message || "Something went wrong");
-            }
-
+            setError(err.message || "Something went wrong");
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
-            <div className="bg-white p-6 rounded-2xl shadow-xl w-[520px] max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
 
-                <h2 className="text-xl font-semibold mb-4">
-                    Add Customer
-                </h2>
+            <div className="bg-white w-[540px] max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl p-6">
 
+                {/* HEADER */}
+                <div className="flex items-center justify-between mb-5">
+                    <h2 className="text-xl font-semibold text-gray-800">
+                        Add Customer
+                    </h2>
+
+                    <button
+                        onClick={onCloseAction}
+                        className="text-gray-500 hover:text-black text-lg"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                {/* FORM */}
                 <div className="grid grid-cols-2 gap-3">
 
                     <input
                         placeholder="Name"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                     />
 
                     <input
                         placeholder="Phone"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                     />
 
                     <input
                         placeholder="Website"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.website}
                         onChange={(e) => handleChange("website", e.target.value)}
                     />
 
                     <input
                         placeholder="IP Address"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.ipAddress}
                         onChange={(e) => handleChange("ipAddress", e.target.value)}
                     />
 
                     <select
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400 col-span-2"
                         value={form.role}
                         onChange={(e) => handleChange("role", e.target.value)}
                     >
@@ -183,32 +180,34 @@ export default function AdminAddCustomerDialog({
 
                     <input
                         placeholder="Username"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.username}
                         onChange={(e) => handleChange("username", e.target.value)}
                     />
 
                     <input
                         placeholder="Password"
-                        className="input"
+                        className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.password}
                         onChange={(e) => handleChange("password", e.target.value)}
                     />
 
                 </div>
 
+                {/* ERROR */}
                 {error && (
                     <p className="text-red-500 text-sm mt-3">
                         {error}
                     </p>
                 )}
 
-                <div className="flex justify-end gap-3 mt-4">
+                {/* ACTIONS */}
+                <div className="flex justify-end gap-3 mt-5">
 
                     <button
                         onClick={onCloseAction}
-                        className="px-4 py-2 border rounded-lg"
                         disabled={loading}
+                        className="px-4 py-2 border rounded-lg hover:bg-gray-100"
                     >
                         Cancel
                     </button>
@@ -216,7 +215,7 @@ export default function AdminAddCustomerDialog({
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50"
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                     >
                         {loading ? "Creating..." : "Create Customer"}
                     </button>
