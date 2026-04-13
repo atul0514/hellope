@@ -5,7 +5,7 @@ import {AdminPasswordCellCustomerList} from "../../components/AdminPasswordCellC
 
 type Customer = {
     id: number;
-    name: Text;
+    name: string;
     email: string;
     password: string;
     enabled: boolean;
