@@ -71,8 +71,9 @@ export default function AdminAddCustomerDialog({
                 password: form.password || generatePassword(),
                 roleId: roleMap[form.role],
             };
+            const token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsIklQQWRkcmVzcyI6IjEuMS4xLjEiLCJleHAiOjE3NzYwOTQzNzUsImlzcyI6ImFwaS51ZGFhYW4uY29tIiwiYXVkIjoid3d3LnVkYWFhbi5jb20ifQ.sllGHbRjfum9QpnuXnib0G5kbplwH9lDSv-0zazFjtU";
 
-            const token = "YOUR_TOKEN_HERE";
 
             const response = await fetch(
                 "http://www.udaaanpe.com/api/Auth/Create-New-User",
