@@ -5,6 +5,7 @@ import {AdminPasswordCellCustomerList} from "../../components/AdminPasswordCellC
 
 type Customer = {
     id: number;
+    name: Text;
     email: string;
     password: string;
     enabled: boolean;
@@ -15,8 +16,8 @@ export default function AdminCustomersPage() {
     const [search, setSearch] = useState("");
 
     const [customers, setCustomers] = useState<Customer[]>([
-        { id: 1, email: "test1@mail.com", password: "abc12345", enabled: true },
-        { id: 2, email: "test2@mail.com", password: "xyz98765", enabled: false },
+        { id: 1, name:"Test user", email: "test1@mail.com", password: "abc12345", enabled: true },
+        { id: 2, name:"Demo user", email: "test2@mail.com", password: "xyz98765", enabled: false },
     ]);
 
     return (
@@ -51,6 +52,7 @@ export default function AdminCustomersPage() {
                     <thead className="bg-white text-left">
                     <tr>
                         <th className="p-3">No</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Password</th>
                         <th>Status</th>
@@ -64,7 +66,7 @@ export default function AdminCustomersPage() {
                         .map((c, i) => (
                             <tr key={c.id} className="border-t">
                                 <td className="p-3">{i + 1}</td>
-
+                                <td>{c.name}</td>
                                 <td>{c.email}</td>
 
                                 <td>

@@ -1,104 +1,140 @@
-import {useState} from "react";
+import { useState } from "react";
 
-import {MdPerson,  MdDashboard, MdSettings} from "react-icons/md";
-import {HiOutlineChevronLeft, HiOutlineMenuAlt2} from "react-icons/hi";
+import {
+    MdDashboard,
+    MdPeople,
+    MdSettings,
+    MdSwapHoriz,
+    MdReceipt,
+} from "react-icons/md";
+
+import { HiOutlineChevronLeft, HiOutlineMenuAlt2 } from "react-icons/hi";
+
 import LoginPage from "../authpages/LoginPage.tsx";
 import AdminNavBar from "../components/AdminNavBar.tsx";
+
 import AdminDashBoardPage from "./adminpages/AdminDashBoardPage.tsx";
 import AdminCustomersPage from "./adminpages/AdminCustomersPage.tsx";
+import AdminTransfersPage from "./adminpages/AdminTransfersPage.tsx";
+import AdminTransactionsPage from "./adminpages/AdminTransactionsPage.tsx";
 import AdminSettingsPage from "./adminpages/AdminSettingsPage.tsx";
 
-
-const menu = [
-    { name: "Dashboard", icon: MdDashboard, component: AdminDashBoardPage },
-    { name: "Customers", icon: MdPerson, component: AdminCustomersPage },
-
-    { name: "Settings", icon: MdSettings, component: AdminSettingsPage },
-];
+/* Dummy fallback */
+const TransactionsPage = () => <div>Transactions Page</div>;
 
 export default function AdminMainPage() {
     const [open, setOpen] = useState(true);
     const [active, setActive] = useState("Dashboard");
-    const ActiveComponent = menu.find((m) => m.name === active)?.component || LoginPage;
+
+    const components: any = {
+        Dashboard: AdminDashBoardPage,
+        Customers: AdminCustomersPage,
+        Transfer: AdminTransfersPage, 
+        Transactions: AdminTransactionsPage,
+        Settings: AdminSettingsPage,
+    };
+
+    const ActiveComponent = components[active] || LoginPage;
+
+    const menuItem =
+        "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-sm transition-all";
 
     return (
-        <>
+        <div className="flex h-screen overflow-hidden bg-white">
 
-            <div className="flex h-screen  overflow-hiddenbg-white ">
+            {/* Sidebar */}
+            <aside
+                className={`bg-navbg h-full transition-all duration-300 flex flex-col ${
+                    open ? "w-64" : "w-20"
+                }`}
+            >
+                {/* Header */}
+                <div className="p-4 flex items-center justify-between border-b border-white/10">
+                    <button
+                        onClick={() => setOpen(!open)}
+                        className="text-black text-xl"
+                    >
+                        {open ? <HiOutlineChevronLeft /> : <HiOutlineMenuAlt2 />}
+                    </button>
+                </div>
 
-                {/* Sidebar */}
-                <aside
-                    className={`bg-navbg h-full transition-all duration-300 flex flex-col ${
-                        open ? "w-64" : "w-20"
-                    }`}
-                >
-                    {/* Header */}
-                    <div className="p-4 flex items-center justify-between border-b border-white/10">
-                        {/*{open && (*/}
-                        {/*    <span className="font-bold text-black text-lg"></span>*/}
-                        {/*)}*/}
+                {/* Menu */}
+                <nav className="p-2 mt-4 space-y-2">
 
-                        <button
-                            onClick={() => setOpen(!open)}
-                            className="text-black text-xl"
-                        >
-                            {open ? <HiOutlineChevronLeft /> : <HiOutlineMenuAlt2 />}
-                        </button>
+                    <div
+                        onClick={() => setActive("Dashboard")}
+                        className={`${menuItem} ${
+                            active === "Dashboard"
+                                ? "bg-primary text-white"
+                                : "hover:bg-white/10 text-black"
+                        }`}
+                    >
+                        <MdDashboard size={22} />
+                        {open && <span>Dashboard</span>}
                     </div>
 
-                    {/* Menu */}
-                    <nav className="p-2 mt-4 space-y-2">
-                        {menu.map((item) => {
-                            const isActive = active === item.name;
-                            const Icon = item.icon;
+                    <div
+                        onClick={() => setActive("Customers")}
+                        className={`${menuItem} ${
+                            active === "Customers"
+                                ? "bg-primary text-white"
+                                : "hover:bg-white/10 text-black"
+                        }`}
+                    >
+                        <MdPeople size={22} />
+                        {open && <span>Customers</span>}
+                    </div>
 
-                            return (
-                                <div
-                                    key={item.name}
-                                    onClick={() => setActive(item.name)}
-                                    className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all
-              ${
-                                        isActive
-                                            ? "bg-primary text-white"
-                                            : "hover:bg-white/10 text-black"
-                                    }
-            `}
-                                >
-                                    <Icon size={22}/>
-                                    {open && <span className="text-sm">{item.name}</span>}
-                                </div>
-                            );
-                        })}
-                    </nav>
-                </aside>
+                    <div
+                        onClick={() => setActive("Transfer")}
+                        className={`${menuItem} ${
+                            active === "Transfer"
+                                ? "bg-primary text-white"
+                                : "hover:bg-white/10 text-black"
+                        }`}
+                    >
+                        <MdSwapHoriz size={22} />
+                        {open && <span>Transfer</span>}
+                    </div>
 
-                {/* RIGHT SIDE AREA */}
-                <div className="flex-1 flex flex-col bg-white text-black border-l border-black/10 shadow-lg">
+                    <div
+                        onClick={() => setActive("Transactions")}
+                        className={`${menuItem} ${
+                            active === "Transactions"
+                                ? "bg-primary text-white"
+                                : "hover:bg-white/10 text-black"
+                        }`}
+                    >
+                        <MdReceipt size={22} />
+                        {open && <span>Transactions</span>}
+                    </div>
 
-                    {/* Navbar */}
-                    {/*<header className="h-14 flex items-center justify-between px-6 border-b bg-white shadow-sm">*/}
-                    {/*    <h1 className="font-semibold text-primary">{active}</h1>*/}
+                    <div
+                        onClick={() => setActive("Settings")}
+                        className={`${menuItem} ${
+                            active === "Settings"
+                                ? "bg-primary text-white"
+                                : "hover:bg-white/10 text-black"
+                        }`}
+                    >
+                        <MdSettings size={22} />
+                        {open && <span>Settings</span>}
+                    </div>
 
-                    {/*    <div className="flex items-center gap-3">*/}
-                    {/*        <div*/}
-                    {/*            className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">*/}
-                    {/*            A*/}
-                    {/*        </div>*/}
-                    {/*        <span className="text-sm font-medium">Admin</span>*/}
-                    {/*    </div>*/}
-                    {/*</header>*/}
-                    <AdminNavBar />
+                </nav>
+            </aside>
 
-                    {/* Content */}
-                    <main className="flex-1 overflow-y-auto p-6 bg-bg">
+            {/* RIGHT SIDE */}
+            <div className="flex-1 flex flex-col bg-white text-black border-l border-black/10 shadow-lg">
 
-                        <div className="bg-white p-6 rounded-xl shadow min-h-full">
-                            <ActiveComponent />
-                        </div>
+                <AdminNavBar />
 
-                    </main>
-                </div>
+                <main className="flex-1 overflow-y-auto p-6 bg-bg">
+                    <div className="bg-white p-6 rounded-xl shadow min-h-full">
+                        <ActiveComponent />
+                    </div>
+                </main>
             </div>
-        </>
+        </div>
     );
 }
