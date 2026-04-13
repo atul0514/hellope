@@ -114,6 +114,8 @@ export default function AdminCustomersPage() {
 
                                 <td className="text-center border-r border-gray-200">
                                     <label className="inline-flex items-center cursor-pointer w-[120px] justify-center">
+
+                                        {/* INPUT (peer must be here) */}
                                         <input
                                             type="checkbox"
                                             checked={c.enabled}
@@ -121,7 +123,7 @@ export default function AdminCustomersPage() {
                                                 setCustomers((prev) =>
                                                     prev.map((p) =>
                                                         p.id === c.id
-                                                            ? {...p, enabled: !p.enabled}
+                                                            ? { ...p, enabled: !p.enabled }
                                                             : p
                                                     )
                                                 )
@@ -129,19 +131,17 @@ export default function AdminCustomersPage() {
                                             className="sr-only peer"
                                         />
 
-                                        <div
-                                            className="relative w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-green-600 transition">
-                                    <span className="
-                                        absolute top-1 left-1
-                                        w-4 h-4 bg-white rounded-full
-                                        transition-transform duration-300
-                                        peer-checked:translate-x-5
-                                    "/>
+                                        {/* SWITCH BACKGROUND */}
+                                        <div className="relative w-11 h-6 bg-gray-300 rounded-full transition-colors duration-300 peer-checked:bg-green-600">
+
+                                            {/* BALL */}
+                                            <span className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5" />
                                         </div>
 
+                                        {/* TEXT */}
                                         <span className="ml-2 text-xs font-medium w-[80px] inline-block">
-                                    {c.enabled ? "Enabled" : "Disabled"}
-                                </span>
+            {c.enabled ? "Enabled" : "Disabled"}
+        </span>
                                     </label>
                                 </td>
 

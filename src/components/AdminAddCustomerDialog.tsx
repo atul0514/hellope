@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {UserRoles} from "../utils/userRoles.ts";
 
 type Customer = {
     id: number;
@@ -174,9 +175,9 @@ export default function AdminAddCustomerDialog({
                         value={form.role}
                         onChange={(e) => handleChange("role", e.target.value)}
                     >
-                        <option value="Admin">Admin</option>
-                        <option value="Master Api User">Master Api User</option>
-                        <option value="Api User">Api User</option>
+                        <option value={UserRoles.Admin}>{UserRoles.Admin}</option>
+                        <option value={UserRoles.Masters}>{UserRoles.Masters}</option>
+                        <option value={UserRoles.ApiUser}>{UserRoles.ApiUser}</option>
                     </select>
 
                     <input
