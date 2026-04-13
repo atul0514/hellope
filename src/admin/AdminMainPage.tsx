@@ -19,22 +19,27 @@ import AdminTransfersPage from "./adminpages/AdminTransfersPage.tsx";
 import AdminTransactionsPage from "./adminpages/AdminTransactionsPage.tsx";
 import AdminSettingsPage from "./adminpages/AdminSettingsPage.tsx";
 
-/* Dummy fallback */
-const TransactionsPage = () => <div>Transactions Page</div>;
+type PageKey =
+    | "Dashboard"
+    | "Customers"
+    | "Transfer"
+    | "Transactions"
+    | "Settings";
 
 export default function AdminMainPage() {
     const [open, setOpen] = useState(true);
-    const [active, setActive] = useState("Dashboard");
+    const [active, setActive] = useState<PageKey>("Dashboard");
 
-    const components: any = {
+    const components: Record<PageKey, React.ComponentType> = {
         Dashboard: AdminDashBoardPage,
         Customers: AdminCustomersPage,
-        Transfer: AdminTransfersPage, 
+        Transfer: AdminTransfersPage,
         Transactions: AdminTransactionsPage,
         Settings: AdminSettingsPage,
     };
 
-    const ActiveComponent = components[active] || LoginPage;
+    const ActiveComponent =
+        components[active] ?? AdminDashBoardPage;
 
     const menuItem =
         "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer text-sm transition-all";
@@ -54,7 +59,11 @@ export default function AdminMainPage() {
                         onClick={() => setOpen(!open)}
                         className="text-black text-xl"
                     >
-                        {open ? <HiOutlineChevronLeft /> : <HiOutlineMenuAlt2 />}
+                        {open ? (
+                            <HiOutlineChevronLeft />
+                        ) : (
+                            <HiOutlineMenuAlt2 />
+                        )}
                     </button>
                 </div>
 
