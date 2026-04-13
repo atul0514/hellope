@@ -1,4 +1,6 @@
-import { useState } from "react";
+import {useState} from "react";
+import {UserRoles} from "../utils/userRoles.ts";
+
 
 type Customer = {
     id: number;
@@ -8,7 +10,7 @@ type Customer = {
     ipAddress: string;
     username: string;
     password: string;
-    role: "Admin" | "Master Api User" | "Api User";
+    role: UserRoles;
     enabled: boolean;
 };
 
@@ -81,7 +83,7 @@ export default function AdminAddCustomerDialog({
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`, 
+                        "Authorization": `Bearer ${token}`,
                     },
                     body: JSON.stringify(payload),
                             }
@@ -119,7 +121,7 @@ export default function AdminAddCustomerDialog({
         } catch (err: any) {
             console.error("FETCH ERROR:", err);
 
-            // IMPORTANT: real reason behind "Failed to fetch"
+       
             if (err.message === "Failed to fetch") {
                 setError(
                     "Network error: CORS issue or API server not reachable."
@@ -176,9 +178,9 @@ export default function AdminAddCustomerDialog({
                         value={form.role}
                         onChange={(e) => handleChange("role", e.target.value)}
                     >
-                        <option value="Admin">Admin</option>
-                        <option value="Master Api User">Master Api User</option>
-                        <option value="Api User">Api User</option>
+                        <option value={UserRoles.Admin}>{UserRoles.Admin}</option>
+                        <option value={UserRoles.Masters}>{UserRoles.Masters}</option>
+                        <option value={UserRoles.ApiUser}>{UserRoles.ApiUser}</option>
                     </select>
 
                     <input
