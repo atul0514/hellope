@@ -4,21 +4,6 @@ import { AdminPasswordCellCustomerList } from "../../components/AdminPasswordCel
 import { useCustomers } from "../../hooks/useCustomers";
 
 
-type Customer = {
-
-    id: number;
-
-    name: string;
-
-    username: string;
-
-    password: string;
-
-    enabled: boolean;
-
-};
-
-
 export default function AdminCustomersPage() {
 
     const [open, setOpen] = useState(false);
