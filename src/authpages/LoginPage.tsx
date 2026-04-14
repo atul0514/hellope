@@ -7,7 +7,7 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
 
-    const loginMutation = useLogin();   // ✅ missing earlier
+    const loginMutation = useLogin();   
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
