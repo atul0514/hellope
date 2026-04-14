@@ -34,6 +34,9 @@ export const useRejectFundTransfer = () => {
 
   return useMutation({
 
+    onMutate:(variables, ) => {
+      console.log(variables);
+    },
     mutationFn: rejectFundTransfer,
 
     onSuccess: () => {

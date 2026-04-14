@@ -17,7 +17,7 @@ export const rejectFundTransfer = async (id: number) => {
 
   const response = await api.post(
 
-    `/FundTransfer/reject/${id}`
+    `/FundTransfer/Reject-Fund-Transfer-Request/${id}`
 
   );
 

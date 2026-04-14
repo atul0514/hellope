@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {type ComponentType, useState} from "react";
 
 import {
     MdDashboard,
@@ -29,7 +29,7 @@ export default function AdminMainPage() {
     const [open, setOpen] = useState(true);
     const [active, setActive] = useState<PageKey>("Dashboard");
 
-    const components: Record<PageKey, React.ComponentType> = {
+    const components: Record<PageKey, ComponentType> = {
         Dashboard: AdminDashBoardPage,
         Customers: AdminCustomersPage,
         Transfer: AdminTransfersPage,

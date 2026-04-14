@@ -154,7 +154,7 @@ export default function AdminTransactionsPage() {
 
                                             <button
                                                 onClick={() =>
-                                                    handleApprove(t.id)
+                                                    handleApprove(t.requestId)
                                                 }
                                                 disabled={
                                                     approveMutation.isPending
@@ -167,7 +167,7 @@ export default function AdminTransactionsPage() {
 
                                             <button
                                                 onClick={() =>
-                                                    handleReject(t.id)
+                                                    handleReject(t.requestId)
                                                 }
                                                 disabled={
                                                     rejectMutation.isPending
@@ -176,6 +176,8 @@ export default function AdminTransactionsPage() {
                                             >
                                                 Reject
                                             </button>
+
+
 
                                         </div>
 
