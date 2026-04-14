@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+
 import { UserRoles } from "../utils/userRoles.ts";
 import { useCreateCustomer } from "../hooks/useCreateCustomer";
 
@@ -30,6 +33,9 @@ export default function AdminAddCustomerDialog({
     onAddAction,
 }: AddCustomDialogProps) {
 
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
     const createCustomerMutation = useCreateCustomer();
 
     const [form, setForm] = useState<Customer>({
@@ -53,12 +59,10 @@ export default function AdminAddCustomerDialog({
         key: keyof Customer,
         value: string
     ) => {
-
         setForm((prev) => ({
             ...prev,
             [key]: value,
         }));
-
     };
 
     const handleSubmit = () => {
@@ -90,6 +94,7 @@ export default function AdminAddCustomerDialog({
             {
                 onSuccess: () => {
 
+                    // update parent UI immediately
                     onAddAction({
                         ...form,
                         id: Date.now(),
@@ -97,15 +102,24 @@ export default function AdminAddCustomerDialog({
                         enabled: true,
                     });
 
-                    onCloseAction();
+                    // refresh customers list automatically
+                    queryClient.invalidateQueries({
+                        queryKey: ["customers"],
+                    });
+
+                    // redirect to customers page
+                    navigate("/admin", {
+                        replace: true,
+                    });
 
                 },
 
                 onError: (err: any) => {
 
                     const message =
-                        err.response?.data?.message ||
-                        err.response?.data ||
+                        err?.response?.data?.message ||
+                        err?.response?.data ||
+                        err?.message ||
                         "Failed to create customer";
 
                     setError(message);
@@ -124,9 +138,7 @@ export default function AdminAddCustomerDialog({
                 <div className="flex items-center justify-between mb-5">
 
                     <h2 className="text-xl font-semibold text-gray-800">
-
                         Add Customer
-
                     </h2>
 
                     <button
@@ -146,10 +158,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.name}
                         onChange={(e) =>
-                            handleChange(
-                                "name",
-                                e.target.value
-                            )
+                            handleChange("name", e.target.value)
                         }
                     />
 
@@ -158,10 +167,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.phone}
                         onChange={(e) =>
-                            handleChange(
-                                "phone",
-                                e.target.value
-                            )
+                            handleChange("phone", e.target.value)
                         }
                     />
 
@@ -170,10 +176,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.website}
                         onChange={(e) =>
-                            handleChange(
-                                "website",
-                                e.target.value
-                            )
+                            handleChange("website", e.target.value)
                         }
                     />
 
@@ -182,10 +185,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.ipAddress}
                         onChange={(e) =>
-                            handleChange(
-                                "ipAddress",
-                                e.target.value
-                            )
+                            handleChange("ipAddress", e.target.value)
                         }
                     />
 
@@ -193,10 +193,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400 col-span-2"
                         value={form.role}
                         onChange={(e) =>
-                            handleChange(
-                                "role",
-                                e.target.value
-                            )
+                            handleChange("role", e.target.value)
                         }
                     >
 
@@ -219,10 +216,7 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.username}
                         onChange={(e) =>
-                            handleChange(
-                                "username",
-                                e.target.value
-                            )
+                            handleChange("username", e.target.value)
                         }
                     />
 
@@ -231,30 +225,25 @@ export default function AdminAddCustomerDialog({
                         className="border rounded-lg p-2 outline-none focus:ring-2 focus:ring-blue-400"
                         value={form.password}
                         onChange={(e) =>
-                            handleChange(
-                                "password",
-                                e.target.value
-                            )
+                            handleChange("password", e.target.value)
                         }
                     />
 
                 </div>
 
-                {/* ERROR */}
+                {/* ERROR MESSAGE */}
                 {error && (
                     <p className="text-red-500 text-sm mt-3">
                         {error}
                     </p>
                 )}
 
-                {/* ACTIONS */}
+                {/* ACTION BUTTONS */}
                 <div className="flex justify-end gap-3 mt-5">
 
                     <button
                         onClick={onCloseAction}
-                        disabled={
-                            createCustomerMutation.isPending
-                        }
+                        disabled={createCustomerMutation.isPending}
                         className="px-4 py-2 border rounded-lg hover:bg-gray-100"
                     >
                         Cancel
@@ -262,9 +251,7 @@ export default function AdminAddCustomerDialog({
 
                     <button
                         onClick={handleSubmit}
-                        disabled={
-                            createCustomerMutation.isPending
-                        }
+                        disabled={createCustomerMutation.isPending}
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                     >
 
