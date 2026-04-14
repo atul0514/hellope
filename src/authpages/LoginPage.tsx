@@ -1,48 +1,74 @@
-import { useState } from "react"
-import {appName} from "../utils/helper.ts";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { appName } from "../utils/helper.ts";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
 export default function LoginPage() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [show, setShow] = useState(false)
+    const loginMutation = useLogin();   // ✅ missing earlier
 
-    const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
 
-    // 🔥 validation
+    const [errors, setErrors] = useState<any>({});
+
     const validate = () => {
-        const err: any = {}
 
-        if (!email) err.email = "Email is required"
-        else if (!/\S+@\S+\.\S+/.test(email)) err.email = "Invalid email"
+        const err: any = {};
 
-        if (!password) err.password = "Password is required"
-        else if (password.length < 6) err.password = "Min 6 characters"
+        if (!userName)
+            err.userName = "Username required";
 
-        setErrors(err)
-        return Object.keys(err).length === 0
-    }
+        if (!password)
+            err.password = "Password required";
+
+        setErrors(err);
+
+        return Object.keys(err).length === 0;
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        if (validate()) {
-            console.log("Login success", { email, password })
-            navigate("/admin",{replace:true});
-        }
-    }
+
+        e.preventDefault();
+
+        if (!validate()) return;
+
+        loginMutation.mutate(
+            {
+                userName,
+                password,
+            },
+            {
+                onSuccess: () => {
+
+                    console.log("Login success");
+
+                    navigate("/admin", {
+                        replace: true,
+                    });
+                },
+
+                onError: (error) => {
+
+                    console.log("Login failed", error);
+                    alert("Invalid credentials");
+
+                },
+            }
+        );
+    };
 
     return (
         <div className="min-h-screen flex bg-bg">
 
-            {/* LEFT SIDE */}
-            <div className="hidden md:flex w-1/2 bg-primary font-bold text-white relative items-center justify-center">
+            <div className="hidden md:flex w-1/2 bg-primary font-bold text-white items-center justify-center">
 
                 <div className="text-center px-10">
                     <h1 className="text-2xl font-bold mb-4">
-                       Welcome to {appName}
+                        Welcome to {appName}
                     </h1>
 
                     <p className="text-sm opacity-90">
@@ -52,12 +78,10 @@ export default function LoginPage() {
 
             </div>
 
-            {/* RIGHT SIDE */}
             <div className="w-full md:w-1/2 flex items-center justify-center px-6">
 
                 <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
 
-                    {/* LOGO */}
                     <div className="text-center mb-6">
                         <h2 className="text-primary font-bold text-xl">
                             {appName}
@@ -72,80 +96,90 @@ export default function LoginPage() {
                         Login to your account
                     </p>
 
-                    {/* FORM */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-4"
+                    >
 
-                        {/* EMAIL */}
+                        {/* Username */}
                         <div>
+
                             <input
-                                type="email"
-                                placeholder="Email"
+                                type="text"
+                                placeholder="Username"
                                 className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={userName}
+                                onChange={(e) =>
+                                    setUserName(e.target.value)
+                                }
                             />
-                            {errors.email && (
-                                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+
+                            {errors.userName && (
+
+                                <p className="text-red-500 text-xs mt-1">
+
+                                    {errors.userName}
+
+                                </p>
                             )}
+
                         </div>
 
-                        {/* PASSWORD */}
+
+                        {/* Password */}
                         <div className="relative">
 
                             <input
-                                type={show ? "text" : "password"}
+                                type={
+                                    show
+                                        ? "text"
+                                        : "password"
+                                }
                                 placeholder="Password"
                                 className="w-full border rounded-lg p-2 pr-10 focus:ring-2 focus:ring-primary outline-none"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
                             />
 
-                            {/* 👁 toggle */}
                             <button
                                 type="button"
-                                onClick={() => setShow(!show)}
+                                onClick={() =>
+                                    setShow(!show)
+                                }
                                 className="absolute right-3 top-2.5 text-gray-500"
                             >
                                 {show ? "🙈" : "👁"}
                             </button>
 
                             {errors.password && (
+
                                 <p className="text-red-500 text-xs mt-1">
+
                                     {errors.password}
+
                                 </p>
                             )}
+
                         </div>
 
-                        {/* remember + forgot */}
-                        <div className="flex justify-between text-sm">
-                            <label className="flex items-center gap-2">
-                                <input type="checkbox" />
-                                Remember me
-                            </label>
 
-                            <span className="text-primary cursor-pointer">
-                Reset Password?
-              </span>
-                        </div>
-
-                        {/* BUTTON */}
                         <button
                             type="submit"
-                            className="w-full bg-primary text-white py-2 rounded-lg hover:opacity-90 transition "
+                            className="w-full bg-primary text-white py-2 rounded-lg hover:opacity-90 transition"
                         >
-                            SIGN IN
+
+                            {loginMutation.isPending
+                                ? "Logging in..."
+                                : "SIGN IN"}
+
                         </button>
 
-              {/*          <p className="text-center text-sm mt-4">*/}
-              {/*              Don’t have an account?{" "}*/}
-              {/*              <span className="text-secondary cursor-pointer">*/}
-              {/*  Join Now*/}
-              {/*</span>*/}
-              {/*          </p>*/}
-
                     </form>
+
                 </div>
             </div>
         </div>
-    )
+    );
 }

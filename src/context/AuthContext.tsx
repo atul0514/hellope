@@ -1,0 +1,35 @@
+import { createContext, useContext, useState } from "react";
+
+interface AuthContextType {
+  token: string | null;
+  login: (token: string) => void;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider = ({ children }: any) => {
+  const [token, setToken] = useState(
+    localStorage.getItem("admin_token")
+  );
+
+  const login = (token: string) => {
+    localStorage.setItem("admin_token", token);
+    setToken(token);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("admin_token");
+    setToken(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuthContext = () => {
+  return useContext(AuthContext)!;
+};
