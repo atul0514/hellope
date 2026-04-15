@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AdminAddCustomerDialog from "../../components/AdminAddCustomerDialog.tsx";
-import { AdminPasswordCellCustomerList } from "../../components/AdminPasswordCellCustomerList.tsx";
 import { useCustomers } from "../../hooks/useCustomers";
 import IndicatorComponent from "../../components/IndicatorComponent.tsx";
 
@@ -168,7 +167,7 @@ export default function AdminCustomersPage() {
 
                             <th className="w-[220px] text-center border-r border-gray-200">Username</th>
 
-                            <th className="w-[200px] text-center border-r border-gray-200">Password</th>
+                            <th className="w-[200px] text-center border-r border-gray-200">Phone</th>
 
                             <th className="w-[140px] text-center border-r border-gray-200">Status</th>
 
@@ -226,15 +225,7 @@ export default function AdminCustomersPage() {
 
                                     <td className="text-center border-r border-gray-200">
 
-                                        <div className="flex justify-center">
-
-                                            <AdminPasswordCellCustomerList
-
-                                                password={c.password}
-
-                                            />
-
-                                        </div>
+                                        {c.phoneNo}
 
                                     </td>
 

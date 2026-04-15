@@ -6,6 +6,7 @@ import {
     MdSettings,
     MdSwapHoriz,
     MdReceipt,
+    MdMenuBook,
 } from "react-icons/md";
 
 import { HiOutlineChevronLeft, HiOutlineMenuAlt2 } from "react-icons/hi";
@@ -79,6 +80,13 @@ export default function AdminMainPage() {
                     <div onClick={() => setActive("Settings")} className={`${menuItem} ${active === "Settings" ? "bg-primary text-white" : "text-black"}`}>
                         <MdSettings size={22} />
                         {open && "Settings"}
+                    </div>
+                    <div
+                        onClick={() => window.open("https://www.udaaanpe.com/swagger/index.html", "_blank")}
+                        className={menuItem + " text-black"}
+                    >
+                        <MdMenuBook size={22} />
+                        {open && "API Document"}
                     </div>
 
                 </nav>
