@@ -4,7 +4,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { jwtDecode } from "jwt-decode";
 
 /**
- * JWT payload structure (flexible)
+ * JWT payload structure
  */
 interface JwtPayload {
 
@@ -33,19 +33,24 @@ export const useLogin = () => {
     onSuccess: (data) => {
 
       /**
+       * Allow flexible backend response fields
+       */
+      const response = data as any;
+
+      /**
        * Save token
        */
-      login(data.token);
+      login(response.token);
 
       try {
 
         const decoded =
           jwtDecode<JwtPayload>(
-            data.token
+            response.token
           );
 
         console.log("Decoded JWT:", decoded);
-        console.log("Login API response:", data);
+        console.log("Login API response:", response);
 
 
         /**
@@ -55,7 +60,7 @@ export const useLogin = () => {
           decoded.UserId ||
           decoded.userid ||
           decoded.nameid ||
-          data.UserId ||
+          response.UserId ||
           null;
 
         if (userId) {
@@ -81,10 +86,10 @@ export const useLogin = () => {
           decoded.name ||
           decoded.username ||
           decoded.fullname ||
-          data.Name ||
-          data.FullName ||
-          data.UserName ||
-          data.username ||
+          response.Name ||
+          response.FullName ||
+          response.UserName ||
+          response.username ||
           null;
 
 
@@ -121,7 +126,6 @@ export const useLogin = () => {
           );
 
         }
-
 
       }
       catch (error) {
