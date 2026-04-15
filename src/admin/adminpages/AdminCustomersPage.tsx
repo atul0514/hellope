@@ -2,6 +2,7 @@ import { useState } from "react";
 import AdminAddCustomerDialog from "../../components/AdminAddCustomerDialog.tsx";
 import { AdminPasswordCellCustomerList } from "../../components/AdminPasswordCellCustomerList.tsx";
 import { useCustomers } from "../../hooks/useCustomers";
+import IndicatorComponent from "../../components/IndicatorComponent.tsx";
 
 
 export default function AdminCustomersPage() {
@@ -30,12 +31,7 @@ export default function AdminCustomersPage() {
 
         return (
 
-            <div className="p-6">
-
-                Loading customers...
-
-            </div>
-
+            <IndicatorComponent loadingName={"Loading customers..."}/>
         );
 
 
@@ -162,7 +158,7 @@ export default function AdminCustomersPage() {
 
                 <table className="w-full text-sm table-fixed">
 
-                    <thead className="bg-white">
+                    <thead className="bg-bg">
 
                         <tr className="border-b border-gray-200">
 
@@ -203,7 +199,7 @@ export default function AdminCustomersPage() {
 
                                     key={c.id}
 
-                                    className="border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200"
+                                    className="border-b border-gray-200 hover:bg-bg transition-colors duration-200"
 
                                 >
 
