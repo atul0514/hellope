@@ -181,11 +181,11 @@ export default function RefundPage() {
               Sector 74, Gurgaon, Haryana 122001
             </p>
 
-            <p>Email: Care@udaaanpe.net</p>
+            <p>Email: Care@udaaanpe.com</p>
 
             <p>TelFax: 0124-5181388, 9319411899</p>
 
-            <p>Website: www.udaaanpe.net</p>
+            <p>Website: www.udaaanpe.com</p>
 
           </div>
 

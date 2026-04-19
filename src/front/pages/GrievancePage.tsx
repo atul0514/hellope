@@ -102,7 +102,7 @@ export default function GrievancePage() {
             title="Level 1 — Customer Support"
             description="Acknowledgement within 24 hours. Resolution within 7 working days."
           >
-            <ContactLine icon={<FaEnvelope />} text="Care@udaaanpe.net" />
+            <ContactLine icon={<FaEnvelope />} text="Care@udaaanpe..com" />
             <ContactLine icon={<FaPhoneAlt />} text="0124-5181388 / 9319411899" />
             <ContactLine icon="🎫" text="Support ticket via dashboard" />
           </LevelCard>
@@ -113,7 +113,7 @@ export default function GrievancePage() {
             description="Escalate if unresolved after 7 working days. Response within 48 hours."
           >
             <ContactLine icon={<FaBuilding />} text="DLF Corporate Green Tower 1, Gurgaon" />
-            <ContactLine icon={<FaEnvelope />} text="Care@udaaanpe.net" />
+            <ContactLine icon={<FaEnvelope />} text="Care@udaaanpe..com" />
             <ContactLine icon={<FaPhoneAlt />} text="0124-5181388" />
           </LevelCard>
 
@@ -203,11 +203,11 @@ export default function GrievancePage() {
               Sector 74, Gurgaon, Haryana 122001
             </p>
 
-            <p>Email: Care@udaaanpe.net</p>
+            <p>Email: Care@udaaanpe..com</p>
 
             <p>TelFax: 0124-5181388, 9319411899</p>
 
-            <p>Website: www.udaaanpe.net</p>
+            <p>Website: www.udaaanpe..com</p>
 
           </div>
 
