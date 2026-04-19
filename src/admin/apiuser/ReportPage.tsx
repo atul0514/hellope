@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import React from "react";
 
 /* ---------- TYPES ---------- */
 
@@ -168,55 +167,75 @@ export default function ReportPage() {
       </div>
 
       <div className="bg-white rounded-xl shadow overflow-hidden">
+
         <table className="w-full text-sm">
+
+          <thead className="bg-gray-50 text-gray-600">
+            <tr>
+              <th className="px-5 py-3 text-left">Order ID</th>
+              <th className="px-5 py-3 text-left">Beneficiary</th>
+              <th className="px-5 py-3 text-left">Mode</th>
+              <th className="px-5 py-3 text-left">Amount</th>
+              <th className="px-5 py-3 text-left">Surcharge</th>
+              <th className="px-5 py-3 text-left">Status</th>
+              <th className="px-5 py-3 text-left">UTR</th>
+              <th className="px-5 py-3 text-left">Date</th>
+            </tr>
+          </thead>
+
           <tbody>
-            {filteredData.map((txn, i) => (
-              <tr
-                key={i}
-                className="border-t hover:bg-gray-50 transition"
-              >
-                <td className="px-5 py-4">
-                  {txn.orderId}
-                </td>
+            {filteredData.map(
+              (txn: Transaction, i: number) => (
+                <tr
+                  key={i}
+                  className="border-t hover:bg-gray-50 transition"
+                >
+                  <td className="px-5 py-4">
+                    {txn.orderId}
+                  </td>
 
-                <td className="px-5 py-4">
-                  <div className="font-medium">
-                    {txn.name}
-                  </div>
+                  <td className="px-5 py-4">
+                    <div className="font-medium">
+                      {txn.name}
+                    </div>
 
-                  <div className="text-xs text-gray-400">
-                    {txn.account}
-                  </div>
-                </td>
+                    <div className="text-xs text-gray-400">
+                      {txn.account}
+                    </div>
+                  </td>
 
-                <td className="px-5 py-4">
-                  <ModeBadge mode={txn.mode} />
-                </td>
+                  <td className="px-5 py-4">
+                    <ModeBadge mode={txn.mode} />
+                  </td>
 
-                <td className="px-5 py-4">
-                  {txn.amount}
-                </td>
+                  <td className="px-5 py-4">
+                    {txn.amount}
+                  </td>
 
-                <td className="px-5 py-4">
-                  {txn.surcharge}
-                </td>
+                  <td className="px-5 py-4">
+                    {txn.surcharge}
+                  </td>
 
-                <td className="px-5 py-4">
-                  <StatusBadge status={txn.status} />
-                </td>
+                  <td className="px-5 py-4">
+                    <StatusBadge status={txn.status} />
+                  </td>
 
-                <td className="px-5 py-4 text-gray-500">
-                  {txn.utr || "—"}
-                </td>
+                  <td className="px-5 py-4 text-gray-500">
+                    {txn.utr ?? "—"}
+                  </td>
 
-                <td className="px-5 py-4 text-gray-500">
-                  {txn.date}
-                </td>
-              </tr>
-            ))}
+                  <td className="px-5 py-4 text-gray-500">
+                    {txn.date}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
+
         </table>
+
       </div>
+
     </div>
   );
 }

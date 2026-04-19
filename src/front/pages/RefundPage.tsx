@@ -2,15 +2,30 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import FooterLinks from "../pages/components/FooterLinks";
 
-export default function RefundPage() {
+/* ---------- TYPES ---------- */
 
+type SectionProps = {
+  title: string;
+  content?: string;
+  list?: string[];
+};
+
+type TableRowProps = {
+  step: string;
+  action: string;
+  timeline: string;
+};
+
+/* ---------- PAGE ---------- */
+
+export default function RefundPage() {
   const navigate = useNavigate();
 
   return (
-
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
 
       {/* HEADER */}
+
       <div className="bg-slate-900 text-white px-10">
 
         <div className="max-w-5xl mx-auto px-6 pb-12 pt-10">
@@ -37,14 +52,13 @@ export default function RefundPage() {
 
 
       {/* CONTENT */}
-      <div className="max-w-5xl mx-auto px-6 pb-16 mt-14 space-y-10">
 
+      <div className="max-w-5xl mx-auto px-6 pb-16 mt-14 space-y-10">
 
         <Section
           title="1. Overview"
-          content={`This Refund & Cancellation Policy outlines the terms under which refunds are processed for transactions conducted through the UdaaanPe platform. All amounts are in Indian Rupees (₹ / INR) and comply with RBI guidelines and applicable consumer protection laws.`}
+          content="This Refund & Cancellation Policy outlines the terms under which refunds are processed for transactions conducted through the UdaaanPe platform. All amounts are in Indian Rupees (₹ / INR) and comply with RBI guidelines and applicable consumer protection laws."
         />
-
 
         <Section
           title="2. Refund Eligibility"
@@ -52,10 +66,9 @@ export default function RefundPage() {
             "Failed Transactions: Amount reversed within 5 working days if transaction fails.",
             "Duplicate Transactions: Duplicate charges refunded after verification.",
             "Incorrect Amount Deduction: Excess amount refunded after investigation.",
-            "Service Not Delivered: Full refund processed if service was not delivered."
+            "Service Not Delivered: Full refund processed if service was not delivered.",
           ]}
         />
-
 
         <Section
           title="3. Non-Refundable Items"
@@ -64,12 +77,13 @@ export default function RefundPage() {
             "Transaction surcharges and service fees.",
             "Low balance penalty charges (₹500/day below ₹1,00,000 wallet balance).",
             "Wallet top-ups via approved fund requests or payment gateway.",
-            "Errors caused by incorrect beneficiary details or amount entry."
+            "Errors caused by incorrect beneficiary details or amount entry.",
           ]}
         />
 
 
         {/* REFUND PROCESS TABLE */}
+
         <div>
 
           <h2 className="text-2xl font-semibold mb-4">
@@ -130,10 +144,9 @@ export default function RefundPage() {
           list={[
             "Wallet Credit: Refunded directly to your UdaaanPe wallet.",
             "Source Account: Refund processed to original payment source.",
-            "Bank Transfer: Refund via NEFT/IMPS in exceptional cases."
+            "Bank Transfer: Refund via NEFT/IMPS in exceptional cases.",
           ]}
         />
-
 
         <Section
           title="6. Cancellation Policy"
@@ -141,18 +154,18 @@ export default function RefundPage() {
             "Pending transactions can be cancelled before processing.",
             "Processing or successful transactions cannot be cancelled.",
             "Pending fund requests may be cancelled before approval.",
-            "Account closure requests processed after balance settlement."
+            "Account closure requests processed after balance settlement.",
           ]}
         />
 
-
         <Section
           title="7. Dispute Resolution"
-          content={`If you disagree with our refund decision, you may escalate the matter via our Grievance Redressal mechanism. Unresolved disputes may be further escalated to the RBI Ombudsman for Digital Transactions.`}
+          content="If you disagree with our refund decision, you may escalate the matter via our Grievance Redressal mechanism. Unresolved disputes may be further escalated to the RBI Ombudsman for Digital Transactions."
         />
 
 
         {/* CONTACT SECTION */}
+
         <div className="bg-white rounded-2xl shadow-md p-6">
 
           <h2 className="text-2xl font-semibold mb-3">
@@ -179,18 +192,21 @@ export default function RefundPage() {
         </div>
 
       </div>
-          <FooterLinks/>
+
+      <FooterLinks />
+
     </div>
-
   );
-
 }
 
 
+/* ---------- SECTION COMPONENT ---------- */
 
-/* SECTION COMPONENT */
-
-function Section({ title, content, list }) {
+function Section({
+  title,
+  content,
+  list,
+}: SectionProps) {
 
   return (
 
@@ -208,7 +224,7 @@ function Section({ title, content, list }) {
 
       {list && (
         <ul className="list-disc ml-6 space-y-2 text-gray-700">
-          {list.map((item, i) => (
+          {list.map((item: string, i: number) => (
             <li key={i}>{item}</li>
           ))}
         </ul>
@@ -221,19 +237,29 @@ function Section({ title, content, list }) {
 }
 
 
-/* TABLE ROW COMPONENT */
+/* ---------- TABLE ROW COMPONENT ---------- */
 
-function TableRow({ step, action, timeline }) {
+function TableRow({
+  step,
+  action,
+  timeline,
+}: TableRowProps) {
 
   return (
 
     <tr className="border-t">
 
-      <td className="px-4 py-3">{step}</td>
+      <td className="px-4 py-3">
+        {step}
+      </td>
 
-      <td className="px-4 py-3">{action}</td>
+      <td className="px-4 py-3">
+        {action}
+      </td>
 
-      <td className="px-4 py-3">{timeline}</td>
+      <td className="px-4 py-3">
+        {timeline}
+      </td>
 
     </tr>
 

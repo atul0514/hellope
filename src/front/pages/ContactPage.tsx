@@ -6,19 +6,28 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
-  FaGlobe
+  FaGlobe,
 } from "react-icons/fa";
+import React from "react";
 
+/* ---------- TYPES ---------- */
+
+type ContactCardProps = {
+  icon: React.ReactNode;
+  title: string;
+  content: React.ReactNode;
+};
+
+/* ---------- PAGE ---------- */
 
 export default function ContactPage() {
-
   const navigate = useNavigate();
 
   return (
-
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
 
       {/* HEADER */}
+
       <div className="bg-slate-900 text-white px-6 pt-10 pb-6">
 
         <div className="max-w-7xl mx-auto">
@@ -45,10 +54,9 @@ export default function ContactPage() {
 
 
       {/* CONTACT GRID */}
+
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 py-10">
 
-
-        {/* PHONE */}
         <ContactCard
           icon={<FaPhoneAlt />}
           title="Phone / TelFax"
@@ -60,14 +68,13 @@ export default function ContactPage() {
           }
         />
 
-
-        {/* EMAIL */}
         <ContactCard
           icon={<FaEnvelope />}
           title="Email"
           content={
             <>
               <p>Care@udaaanpe.com</p>
+
               <span className="text-sm text-gray-500">
                 Support inquiries & general queries
               </span>
@@ -75,8 +82,6 @@ export default function ContactPage() {
           }
         />
 
-
-        {/* OFFICE */}
         <ContactCard
           icon={<FaMapMarkerAlt />}
           title="Registered Office"
@@ -89,14 +94,16 @@ export default function ContactPage() {
           }
         />
 
-
-        {/* HOURS */}
         <ContactCard
           icon={<FaClock />}
           title="Business Hours"
           content={
             <>
-              <p>Monday – Saturday: 10:00 AM – 7:00 PM IST</p>
+              <p>
+                Monday – Saturday:
+                10:00 AM – 7:00 PM IST
+              </p>
+
               <p>Sunday: Closed</p>
             </>
           }
@@ -105,7 +112,8 @@ export default function ContactPage() {
       </div>
 
 
-      {/* WEBSITE FULL WIDTH */}
+      {/* WEBSITE SECTION */}
+
       <div className="bg-white shadow-inner border-y">
 
         <div className="max-w-7xl mx-auto px-6 py-6 flex items-center gap-4">
@@ -131,6 +139,7 @@ export default function ContactPage() {
 
 
       {/* GRIEVANCE SECTION */}
+
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-10">
 
         <div className="max-w-7xl mx-auto px-6">
@@ -141,7 +150,8 @@ export default function ContactPage() {
 
           <p className="opacity-90 leading-relaxed">
 
-            If you have an unresolved complaint, please visit our
+            If you have an unresolved complaint,
+            please visit our
 
             <Link
               to="/grievance-redressal"
@@ -164,19 +174,23 @@ export default function ContactPage() {
 
       </div>
 
-      <FooterLinks/>
+
+      {/* FOOTER */}
+
+      <FooterLinks />
+
     </div>
-
   );
-
 }
 
 
+/* ---------- CONTACT CARD COMPONENT ---------- */
 
-/* CONTACT CARD */
-
-function ContactCard({ icon, title, content }) {
-
+function ContactCard({
+  icon,
+  title,
+  content,
+}: ContactCardProps) {
   return (
 
     <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-7 flex gap-4">
@@ -200,24 +214,4 @@ function ContactCard({ icon, title, content }) {
     </div>
 
   );
-
-}
-
-
-
-/* FOOTER LINK */
-
-function FooterLink({ label, to }) {
-
-  return (
-
-    <Link
-      to={to}
-      className="hover:text-blue-400 transition"
-    >
-      {label}
-    </Link>
-
-  );
-
 }

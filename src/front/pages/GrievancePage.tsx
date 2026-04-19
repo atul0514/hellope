@@ -5,51 +5,76 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaBuilding,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
 } from "react-icons/fa";
+import React from "react";
+
+/* ---------- TYPES ---------- */
+
+type SectionProps = {
+  title: string;
+  content?: string;
+  list?: string[];
+};
+
+type LevelCardProps = {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+};
+
+type ContactLineProps = {
+  icon: React.ReactNode | string;
+  text: string;
+};
+
+type TableRowProps = {
+  type: string;
+  tat: string;
+};
+
+/* ---------- PAGE ---------- */
 
 export default function GrievancePage() {
-
   const navigate = useNavigate();
 
   return (
-
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
 
       {/* HEADER */}
-      <div className="bg-slate-900 text-white px-10 ">
+
+      <div className="bg-slate-900 text-white px-10">
+
         <div className="max-w-5xl mx-auto px-6 pb-6 pt-10">
+
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium mb-6"
+            className="flex items-center gap-2 text-blue-400 hover:text-blue-200 font-medium mb-6"
           >
             <FaArrowLeft />
             Back to Home
           </button>
 
-          <h1 className="text-4xl font-bold text-white-900">
+          <h1 className="text-4xl font-bold">
             Grievance Redressal
           </h1>
 
-          <p className="text-white-500 mt-2">
+          <p className="text-slate-300 mt-2">
             Last updated: April 19, 2026
           </p>
 
-        </div>       
+        </div>
 
       </div>
 
 
       <div className="max-w-5xl mx-auto px-6 pb-16 mt-10 space-y-10">
 
-        {/* SECTION 1 */}
         <Section
           title="1. Our Commitment"
-          content={`UdaaanPe is committed to providing a transparent, fair, and efficient grievance redressal mechanism for all our users. This policy complies with Reserve Bank of India (RBI) guidelines for payment aggregators and intermediaries.`}
+          content="UdaaanPe is committed to providing a transparent, fair, and efficient grievance redressal mechanism for all our users. This policy complies with Reserve Bank of India (RBI) guidelines for payment aggregators and intermediaries."
         />
 
-
-        {/* SECTION 2 */}
         <Section
           title="2. Types of Grievances"
           list={[
@@ -60,18 +85,17 @@ export default function GrievancePage() {
             "KYC verification delays or rejections",
             "QR code / payment link / virtual account issues",
             "API integration issues or downtime",
-            "Service quality concerns or misconduct"
+            "Service quality concerns or misconduct",
           ]}
         />
 
-
-        {/* SECTION 3 */}
         <h2 className="text-2xl font-semibold">
           3. Grievance Redressal Process
         </h2>
 
 
         {/* LEVEL CARDS */}
+
         <div className="grid md:grid-cols-3 gap-6">
 
           <LevelCard
@@ -80,7 +104,7 @@ export default function GrievancePage() {
           >
             <ContactLine icon={<FaEnvelope />} text="Care@udaaanpe.net" />
             <ContactLine icon={<FaPhoneAlt />} text="0124-5181388 / 9319411899" />
-            <ContactLine icon={"🎫"} text="Support ticket via dashboard" />
+            <ContactLine icon="🎫" text="Support ticket via dashboard" />
           </LevelCard>
 
 
@@ -98,17 +122,13 @@ export default function GrievancePage() {
             title="Level 3 — RBI Escalation"
             description="Escalate after 30 days if unresolved."
           >
-            <ContactLine
-              icon={<FaExternalLinkAlt />}
-              text="https://cms.rbi.org.in"
-            />
-            <ContactLine icon={"📞"} text="RBI Helpline: 14448" />
+            <ContactLine icon={<FaExternalLinkAlt />} text="https://cms.rbi.org.in" />
+            <ContactLine icon="📞" text="RBI Helpline: 14448" />
           </LevelCard>
 
         </div>
 
 
-        {/* SECTION 4 */}
         <Section
           title="4. Information Required"
           list={[
@@ -116,12 +136,13 @@ export default function GrievancePage() {
             "Transaction ID / reference number",
             "Date and time of transaction",
             "Detailed description of issue",
-            "Supporting screenshots or documents"
+            "Supporting screenshots or documents",
           ]}
         />
 
 
-        {/* SECTION 5 TABLE */}
+        {/* TAT TABLE */}
+
         <div>
 
           <h2 className="text-2xl font-semibold mb-4">
@@ -159,14 +180,14 @@ export default function GrievancePage() {
         </div>
 
 
-        {/* SECTION 6 */}
         <Section
           title="6. Refund Policy"
-          content={`Refunds for failed transactions will be initiated within 5 working days after resolution. If third-party banks are involved, timelines depend on the respective institution.`}
+          content="Refunds for failed transactions will be initiated within 5 working days after resolution. If third-party banks are involved, timelines depend on the respective institution."
         />
 
 
-        {/* SECTION 7 */}
+        {/* CONTACT BLOCK */}
+
         <div className="bg-white rounded-2xl shadow-md p-6">
 
           <h2 className="text-2xl font-semibold mb-3">
@@ -197,17 +218,13 @@ export default function GrievancePage() {
       <FooterLinks />
 
     </div>
-
   );
-
 }
 
 
+/* ---------- COMPONENTS ---------- */
 
-/* COMPONENTS */
-
-function Section({ title, content, list }) {
-
+function Section({ title, content, list }: SectionProps) {
   return (
 
     <div className="bg-white rounded-2xl shadow-md p-6">
@@ -224,7 +241,7 @@ function Section({ title, content, list }) {
 
       {list && (
         <ul className="list-disc ml-6 space-y-2 text-gray-700">
-          {list.map((item, i) => (
+          {list.map((item: string, i: number) => (
             <li key={i}>{item}</li>
           ))}
         </ul>
@@ -233,12 +250,10 @@ function Section({ title, content, list }) {
     </div>
 
   );
-
 }
 
 
-function LevelCard({ title, description, children }) {
-
+function LevelCard({ title, description, children }: LevelCardProps) {
   return (
 
     <div className="bg-white rounded-2xl shadow-md p-5">
@@ -258,36 +273,40 @@ function LevelCard({ title, description, children }) {
     </div>
 
   );
-
 }
 
 
-function ContactLine({ icon, text }) {
-
+function ContactLine({ icon, text }: ContactLineProps) {
   return (
 
     <div className="flex items-center gap-2 text-sm">
-      <span className="text-blue-600">{icon}</span>
+
+      <span className="text-blue-600">
+        {icon}
+      </span>
+
       {text}
+
     </div>
 
   );
-
 }
 
 
-function TableRow({ type, tat }) {
-
+function TableRow({ type, tat }: TableRowProps) {
   return (
 
     <tr className="border-t">
 
-      <td className="px-4 py-3">{type}</td>
+      <td className="px-4 py-3">
+        {type}
+      </td>
 
-      <td className="px-4 py-3">{tat}</td>
+      <td className="px-4 py-3">
+        {tat}
+      </td>
 
     </tr>
 
   );
-
 }
