@@ -1,4 +1,4 @@
-export const appName = "HelloPe"
+export const appName = "UdaaanPe"
 
 
 export async function apiPost<TResponse, TPayload>(

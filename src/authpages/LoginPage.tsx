@@ -2,6 +2,7 @@ import { useState } from "react";
 import { appName } from "../utils/helper.ts";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
+import logo from "../assets/logo.png";
 
 export default function LoginPage() {
 
@@ -70,9 +71,10 @@ export default function LoginPage() {
                     <h1 className="text-2xl font-bold mb-4">
                         Welcome to {appName}
                     </h1>
+                    
 
                     <p className="text-sm opacity-90">
-                        Smart hiring experience powered by automation and intelligence.
+                        AI-led New India's Leading Fintech
                     </p>
                 </div>
 
@@ -82,18 +84,24 @@ export default function LoginPage() {
 
                 <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
 
-                    <div className="text-center mb-6">
-                        <h2 className="text-primary font-bold text-xl">
+                    <div className="flex items-center justify-center">
+                        {/* <h2 className="text-primary font-bold text-xl">
                             {appName}
-                        </h2>
+                        </h2> */}
+                        <img
+                        src={logo}
+                        alt="Udaanpe"
+                        className="h-32 "
+                        data-aos="zoom-in"
+                        />
                     </div>
 
-                    <h3 className="text-lg font-semibold mb-1">
-                        Login
+                    <h3 className="text-lg text-center font-semibold mb-1">
+                        Internet Banking Login
                     </h3>
 
-                    <p className="text-sm text-gray-500 mb-6">
-                        Login to your account
+                    <p className="text-sm text-center 1875remtext-gray-500 mb-3">
+                        Sign in to your UdaaanPe account securely
                     </p>
 
                     <form
