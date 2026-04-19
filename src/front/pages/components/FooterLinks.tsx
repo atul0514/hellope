@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 
+type FooterLinkProps = {
+  label: string;
+  to: string;
+};
+
 export default function FooterLinks() {
-
   return (
-
     <footer className="bg-slate-900 text-white py-6">
-
       <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-4 text-sm">
-
+        
         <FooterLink
           label="Privacy Policy"
           to="/privacy-policy"
@@ -35,25 +37,17 @@ export default function FooterLinks() {
         />
 
       </div>
-
     </footer>
-
   );
-
 }
 
-
-function FooterLink({ label, to }) {
-
+function FooterLink({ label, to }: FooterLinkProps) {
   return (
-
     <Link
       to={to}
       className="hover:text-blue-400 transition"
     >
       {label}
     </Link>
-
   );
-
 }
