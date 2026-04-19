@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import React from "react";
 
 /* ---------- TYPES ---------- */
 
