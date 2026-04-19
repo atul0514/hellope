@@ -203,11 +203,10 @@ export default function LedgerPage() {
 
 
                                 <td
-                                    className={`px-5 py-4 font-medium ${
-                                        item.type === "Credit"
+                                    className={`px-5 py-4 font-medium ${item.type === "Credit"
                                             ? "text-green-600"
                                             : "text-red-600"
-                                    }`}
+                                        }`}
                                 >
 
                                     {item.amount}
@@ -281,13 +280,12 @@ function SummaryCard({ title, value, color }: any) {
             </p>
 
             <div
-                className={`mt-2 text-lg font-semibold ${
-                    color === "green"
+                className={`mt-2 text-lg font-semibold ${color === "green"
                         ? "text-green-600"
                         : color === "red"
-                        ? "text-red-600"
-                        : ""
-                }`}
+                            ? "text-red-600"
+                            : ""
+                    }`}
             >
 
                 {value}
@@ -303,26 +301,20 @@ function SummaryCard({ title, value, color }: any) {
 
 /* TYPE BADGE */
 
-function TypeBadge({ type }: any) {
+type LedgerType = "Credit" | "Debit";
 
-    const styles = {
-
+function TypeBadge({ type }: { type: LedgerType }) {
+    const styles: Record<LedgerType, string> = {
         Credit: "bg-green-100 text-green-600",
-
-        Debit: "bg-red-100 text-red-600"
-
+        Debit: "bg-red-100 text-red-600",
     };
 
     return (
-
         <span
             className={`px-3 py-1 rounded-full text-xs font-medium ${styles[type]}`}
         >
-
             {type}
-
         </span>
-
     );
 
 }

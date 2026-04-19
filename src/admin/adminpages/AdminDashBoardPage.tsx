@@ -337,7 +337,14 @@ export default AdminDashBoardPage;
 
 
 
-function DashboardCard({ title, value, icon }) {
+type DashboardCardProps = {
+  title: string;
+  value: string;
+  icon: React.ReactNode;
+};
+
+function DashboardCard({ title, value, icon }: DashboardCardProps) 
+ {
 
     return (
 

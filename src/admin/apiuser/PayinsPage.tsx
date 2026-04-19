@@ -241,28 +241,20 @@ export default function PayinsPage() {
 
 /* STATUS BADGE COMPONENT */
 
-function StatusBadge({ status }: any) {
+type StatusType = "Success" | "Pending" | "Failed";
 
-    const styles = {
+function StatusBadge({ status }: { status: StatusType }) {
+  const styles: Record<StatusType, string> = {
+    Success: "bg-green-100 text-green-600",
+    Pending: "bg-yellow-100 text-yellow-600",
+    Failed: "bg-red-100 text-red-600",
+  };
 
-        Success: "bg-green-100 text-green-600",
-
-        Pending: "bg-yellow-100 text-yellow-600",
-
-        Failed: "bg-red-100 text-red-600"
-
-    };
-
-    return (
-
-        <span
-            className={`px-3 py-1 rounded-full text-xs font-medium ${styles[status]}`}
-        >
-
-            {status}
-
-        </span>
-
-    );
-
+  return (
+    <span
+      className={`px-3 py-1 rounded-full text-xs font-medium ${styles[status]}`}
+    >
+      {status}
+    </span>
+  );
 }
